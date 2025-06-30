@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //create new Button
-let card = document.getElementsByClassName('card');
 let cardDeck = document.getElementsByClassName('cardDeck');
 
 function createCard(path) {
@@ -45,8 +44,8 @@ function createCard(path) {
 function turnCard(card, path) {
 
     if (!card.classList.contains("flipped")) {
-        imgage = card.querySelector("img");
-        imgage.src = path;
+       let image = card.querySelector("img");
+        image.src = path;
         card.classList.add("flipped");
         nrOfTurndCards++;
 
@@ -78,15 +77,16 @@ function pickPairRandom(decksize) {
 
 let matches = 0;
 function samePair(){
-    let card1 = document.getElementsByClassName('card flipped')[0];
-    let card2 = document.getElementsByClassName('card flipped')[1] ;
+    let flippedCards = document.getElementsByClassName('card flipped');
+    let card1 = flippedCards[0];
+    let card2 = flippedCards[1];
 
 
     if (card1.querySelector("img").src === card2.querySelector("img").src){
         console.log("pair Found!")
         console.log(card1.querySelector("img").src);
-        card1.classList.add("match");
-        console.log(card1);
+        card1.classList.replace("flipped","match");
+        card2.classList.replace("flipped","match")
         matches += 2;
 
         if (matches === nrOfCards){
@@ -102,6 +102,7 @@ function samePair(){
             card1.querySelector("img").src = "images/card-back.jpg"
             card2.classList.remove("flipped");
             card2.querySelector("img").src = "images/card-back.jpg";
+            console.log(card2);
         },1000)
 
     }
